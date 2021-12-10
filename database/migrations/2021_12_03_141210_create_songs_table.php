@@ -18,7 +18,6 @@ class CreateSongsTable extends Migration
             $table->string('song_name');
             $table->string('band_name');
             $table->integer('duration');
-            $table->timestamps();
         });
     }
 
