@@ -1,6 +1,5 @@
 <?php
 
-use App\Models\Genre;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,9 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [App\Http\Controllers\GenreController::class, 'getGenreIndex'])->name('genre');
+
+// Route::get('/', function () {
+//     return view('index');
+// });
 
 Route::get('login', function () {
     return view('login');
@@ -26,6 +27,9 @@ Route::get('register', function () {
     return view('register');
 });
 
-Route::get('genre/genreSpecific', function () {
-    return view('genre/genreSpecific');
-});
+// Route::get('genreSpecific', [App\Http\Controllers\GenreController::class, 'getGenre'])->name('genre');
+Route::get('genreSpecific', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
+
+// Route::get('genre/genreSpecific', function () {
+//     return view('genre/genreSpecific');
+// });
