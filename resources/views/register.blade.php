@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 
 <title>Register</title>
-<link rel="stylesheet" href="css/app.css">
 
 <body>
 <a href="/">Take me back</a>

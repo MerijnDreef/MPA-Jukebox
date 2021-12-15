@@ -15,9 +15,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\GenreController::class, 'getGenreIndex'])->name('genre');
 
-// Route::get('/', function () {
-//     return view('index');
-// });
 
 Route::get('login', function () {
     return view('login');
@@ -27,9 +24,7 @@ Route::get('register', function () {
     return view('register');
 });
 
-// Route::get('genreSpecific', [App\Http\Controllers\GenreController::class, 'getGenre'])->name('genre');
-Route::get('genreSpecific', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
+Route::get('songs', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
 
-// Route::get('genre/genreSpecific', function () {
-//     return view('genre/genreSpecific');
-// });
+// Route::get('genreSpecific', [App\Http\Controllers\GenreController::class, 'getGenre'])->name('genre');
+Route::get('genreSpecific/{genre_id}', [App\Http\Controllers\SongController::class, 'getSongSpecific'])->name('songGenre');
