@@ -10,12 +10,12 @@ class SongController extends Controller
 {
     public function getSong(){
         $songs = Songs::all();
-        return view('/songs', compact('songs'));
+        return view('songs', compact('songs'));
     }
 
     public function getSongSpecific($genre_id){
         $songs = Songs::where("genre_id", $genre_id)->get();
-        $genre = Genre::where("id", $genre_id)->get();
-        return view('/genreSpecific', compact('songs', 'genre'));
+        $genres = Genre::where("id", $genre_id)->get();
+        return view('genreSpecific', compact('songs', 'genres'));
     }
 }

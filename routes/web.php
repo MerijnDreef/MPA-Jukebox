@@ -15,14 +15,12 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', [App\Http\Controllers\GenreController::class, 'getGenreIndex'])->name('genre');
 
+Route::get('/register', [App\Http\Controllers\RegistrationController::class, 'create']);
+Route::post('register', [App\Http\Controllers\RegistrationController::class, 'store']);
 
-Route::get('login', function () {
-    return view('login');
-});
-
-Route::get('register', function () {
-    return view('register');
-});
+Route::get('/login', [App\Http\Controllers\SessionController::class, 'create']);
+Route::post('/login', [App\Http\Controllers\SessionController::class, 'store']);
+Route::get('/logout', [App\Http\Controllers\SessionController::class, 'destroy']);
 
 Route::get('songs', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
 

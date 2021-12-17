@@ -3,9 +3,15 @@
 <title>Jukebox</title>
 
 <body>
-<a href="/login">Log in</a>
-<a href="/register">register</a>
-<h1>Hey Hey</h1>
+@auth
+    <h3>{{ auth()->User()->name }}</h3>
+    <a href="/logout">Logout</a>
+@endauth
+@guest
+    <a href="/login">Log in</a>
+    <a href="/register">register</a>
+@endguest
+<h1>It's the main page</h1>
 
 <a href="/songs">Songs</a>
 <p>some text right here, also show me some genre's here</p>
