@@ -18,4 +18,8 @@ class SongController extends Controller
         $genres = Genre::where("id", $genre_id)->get();
         return view('genreSpecific', compact('songs', 'genres'));
     }
+    public function getSongPlayList(){
+        $songs = Songs::all();
+        return view('playlist', compact('songs'));
+    }
 }
