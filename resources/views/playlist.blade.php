@@ -23,10 +23,12 @@
     <option value="{{ $song->id }}">{{ $song->name }}</option>
     @endforeach
 </select>
+<!-- session(['key' => 'value']); -->
 </form>
 
 @foreach()
     <p>loop the songs that belong to the list</p>
+   {{ $data = $request->session()->all(); }}
 @endforeach
 
 @auth
