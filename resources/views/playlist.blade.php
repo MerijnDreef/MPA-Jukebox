@@ -4,7 +4,7 @@
 
 <body>
 <!-- @session -->
-
+{{ $data = $request->session()->all() }}
 @auth
     <h3>{{ auth()->User()->name }}</h3>
     <a href="/logout">Logout</a>
@@ -13,7 +13,7 @@
     <a href="/login">Log in</a>
     <a href="/register">register</a>
 @endguest
-
+<a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
 
 <form>
@@ -26,9 +26,14 @@
 <!-- session(['key' => 'value']); -->
 </form>
 
-@foreach()
+@foreach($songs as $song)
     <p>loop the songs that belong to the list</p>
-   {{ $data = $request->session()->all(); }}
+   
+   <ul>
+        <li>{{ $song->name }}</li>
+        <li>{{ $song->artist_name }}</li>
+        <li>{{ gmdate("i:s", $song->duration) }}</li>
+    </ul>
 @endforeach
 
 @auth

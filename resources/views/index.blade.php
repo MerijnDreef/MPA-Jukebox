@@ -14,6 +14,7 @@
 <h1>It's the main page</h1>
 
 <a href="/songs">Songs</a>
+<a href="/playlist">Playlist</a>
 <p>some text right here, also show me some genre's here</p>
 @foreach($genres as $genre) 
     <ul>

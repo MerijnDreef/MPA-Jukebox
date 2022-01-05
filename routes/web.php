@@ -24,7 +24,7 @@ Route::get('/logout', [App\Http\Controllers\SessionController::class, 'destroy']
 
 Route::get('songs', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
 
-Route::get('playlist', [App\Http\Controllers\SongController::class, 'getSongPlayList'])->name('songPlayList');
+Route::get('playlist', [App\Http\Controllers\SongController::class, 'getSongPlayList'], session(['key' => 'value']))->name('songPlayList');
 
 // Route::get('genreSpecific', [App\Http\Controllers\GenreController::class, 'getGenre'])->name('genre');
 Route::get('genreSpecific/{genre_id}', [App\Http\Controllers\SongController::class, 'getSongSpecific'])->name('songGenre');
