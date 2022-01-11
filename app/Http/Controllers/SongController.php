@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Songs;
 use App\Models\Genre;
+use App\Models\SavedListsSongs;
 
 class SongController extends Controller
 {
@@ -18,9 +19,14 @@ class SongController extends Controller
         $genres = Genre::where("id", $genre_id)->get();
         return view('genreSpecific', compact('songs', 'genres'));
     }
-    public function getSongPlayList(Request $request, $id){
+    public function getSongPlayList(Request $request){
         $songs = Songs::all();
-        $value = $request->session()->get('key');
-        return view('playlist', compact('songs'));
+        $values = $request->session()->get('PlaylistStorage');
+        return view('playlist', compact('songs', 'values'));
+    }
+    public function addToSessionPlaylist(Request $request, $id) {
+        if(!$request->session()->has("PlaylistStorage")) {
+            $request->session()->put("PlaylistStorage", new SavedListsSongs);
+        }
     }
 }

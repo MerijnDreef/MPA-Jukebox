@@ -4,7 +4,8 @@
 
 <body>
 <!-- @session -->
-{{ $data = $request->session()->all() }}
+
+{{ $values }}
 @auth
     <h3>{{ auth()->User()->name }}</h3>
     <a href="/logout">Logout</a>
@@ -23,6 +24,7 @@
     <option value="{{ $song->id }}">{{ $song->name }}</option>
     @endforeach
 </select>
+<input type="submit" value="submit">
 <!-- session(['key' => 'value']); -->
 </form>
 
