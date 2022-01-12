@@ -25,7 +25,11 @@ Route::get('/logout', [App\Http\Controllers\SessionController::class, 'destroy']
 Route::get('songs', [App\Http\Controllers\SongController::class, 'getSong'])->name('song');
 
 Route::get('playlist', [App\Http\Controllers\SongController::class, 'getSongPlayList'], session(['key' => 'value']))->name('songPlayList');
-// Route::post('playlist', [App\Http\Controllers\SongController::class, 'getSongPlayList'], ) unfinished soon to be fixed
+// Route::post('playlist', [App\Http\Controllers\SongController::class, 'getSongPlayList'], ); unfinished soon to be fixed
+
+Route::get('/queue/{song}', [App\Http\Controllers\QueueController::class, 'push'])->name('pushqueue');
+Route::get('/queue', [App\Http\Controllers\QueueController::class, 'get'])->name('getqueue');
+Route::get('/queue', [App\Http\Controllers\QueueController::class, 'vision'])->name('showqueue');
 
 // Route::get('genreSpecific', [App\Http\Controllers\GenreController::class, 'getGenre'])->name('genre');
 Route::get('genreSpecific/{genre_id}', [App\Http\Controllers\SongController::class, 'getSongSpecific'])->name('songGenre');
