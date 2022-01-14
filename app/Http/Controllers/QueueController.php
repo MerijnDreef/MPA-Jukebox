@@ -8,11 +8,16 @@ use Illuminate\Support\Facades\Session;
 class QueueController extends Controller
 {
     function push($song){
-        Session::push('playlist', $song);
-        $queueList = Session::get('playlist');
+        Session::push('queue', $song);
+        $queueList = Session::get('queue');
         if ($queueList == null) {
             $queueList = [];
         }
         return view('queue', compact('queueList'));
     } 
+
+    public function index(){
+        
+        return view('queue');
+    }
 }

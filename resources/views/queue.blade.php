@@ -16,15 +16,16 @@
 @endguest
 <a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
+<a href="/songs">Songs</a>
 
-@foreach($queueList as $song)
+<!-- @foreach($queueList as $song)
     <p>loop the songs that belong to the list</p>
    
    <ul>
         <li>{{ $song }}</li>
      
     </ul>
-@endforeach
+@endforeach -->
 
 @auth
     <p>Like put something here to make the list</p>
