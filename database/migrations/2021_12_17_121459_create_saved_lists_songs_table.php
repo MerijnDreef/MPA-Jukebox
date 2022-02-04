@@ -16,7 +16,8 @@ class CreateSavedListsSongsTable extends Migration
         Schema::create('saved_lists_songs', function (Blueprint $table) {
             $table->id();
             $table->foreignId('song_id');
-            $table->foreignId('saved_Lists_id');
+            $table->foreignId('saved_lists_id');
+            $table->timestamps();
         });
     }
 

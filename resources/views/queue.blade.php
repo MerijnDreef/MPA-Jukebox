@@ -17,20 +17,25 @@
 <a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
 <a href="/songs">Songs</a>
+<p>loop the songs that belong to the list</p>
 
-<!-- @foreach($queueList as $song)
-    <p>loop the songs that belong to the list</p>
-   
-   <ul>
-        <li>{{ $song }}</li>
-     
-    </ul>
-@endforeach -->
+@if(session()->has('queue'))
+hey hey
+    @foreach(session()->get('queue') as $list)
+        @foreach($songs as $song)
+            @if($list == $song->id)
+            <ul>
+                <li>{{ $song->name }}</li>
+            </ul>
+            @endif
+        @endforeach
+    @endforeach
+@endif
 
 @auth
     <p>Like put something here to make the list</p>
     <form>
-        <input name="submit" id="submit" value="Make playlist">
+        <input name="submit" type="submit" value="Make playlist">
     </form>
 @endauth
 <p>reminder, you have to add all the songs durations in 1 full list duration</p>
