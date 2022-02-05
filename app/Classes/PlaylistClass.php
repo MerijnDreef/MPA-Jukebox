@@ -25,4 +25,12 @@ class PlaylistClass {
     public function updateSession(){
         Session::put('queue', $this->list);
     }
+
+    public function delete($songId){
+       $key = array_search($songId, $this->list);
+       if($key !== false){
+           unset($this->list[$key]);
+       }
+       $this->updateSession();
+    }
 }

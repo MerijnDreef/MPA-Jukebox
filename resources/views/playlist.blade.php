@@ -17,17 +17,6 @@
 <a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
 
-<!-- <form>
-    <label>Choose a song to add</label> <select name="playListAdd" id="playListAdd">
-    <option value="">--- Choose a song ---</option>
-    @foreach($songs as $song)
-    <option value="{{ $song->id }}">{{ $song->name }}</option>
-    @endforeach
-</select>
-<input type="submit" value="submit">
-session(['key' => 'value']);
-</form> -->
-
 @foreach($songs as $song)
     <p>loop the songs that belong to the list</p>
    

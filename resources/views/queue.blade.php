@@ -16,7 +16,7 @@
 @endguest
 <a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
-<a href="/songs">Songs</a>
+<a href="/songs">Add your Songs</a>
 <p>loop the songs that belong to the list</p>
 
 @if(session()->has('queue'))
@@ -26,6 +26,10 @@ hey hey
             @if($list == $song->id)
             <ul>
                 <li>{{ $song->name }}</li>
+                <form action="/queue/delete/{{$song->id}}" method="POST">
+                    @csrf
+                    <button>Delete</button>
+                </form>
             </ul>
             @endif
         @endforeach
@@ -34,7 +38,9 @@ hey hey
 
 @auth
     <p>Like put something here to make the list</p>
-    <form>
+    <form action="" method="POST">
+        @csrf
+        <label for="name">Fill in the name of the playlist </label><input name="name">
         <input name="submit" type="submit" value="Make playlist">
     </form>
 @endauth

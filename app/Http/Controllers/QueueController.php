@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Models\Songs;
 use App\Models\Genre;
+use App\Classes\PlaylistClass;
 
 class QueueController extends Controller
 {
@@ -26,5 +27,11 @@ class QueueController extends Controller
             'songs' => $songs,
             'genres' => $genres
         ]);
+    }
+
+    public function delete($songId){
+        $playlist = new PlaylistClass();
+        $playlist->delete($songId);
+        return redirect('queue');
     }
 }
