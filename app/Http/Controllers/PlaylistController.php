@@ -7,9 +7,23 @@ use App\Classes\PlaylistClass;
 use Illuminate\Support\Facades\Session;
 use App\Models\SavedLists;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Songs;
+use App\Models\SavedListsSongs;
 
 class PlaylistController extends Controller
 {
+    public function index(){
+        $userId = Auth::user()->id;
+        $savedLists = SavedLists::where('user_id', $userId)->get();
+        return view('playlists', ['savedLists' => $savedLists]);
+    }
+
+    public function show($playlistId){
+        $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();
+        dd($savedList);
+        return view('playlist', ['savedList' => $savedList]);
+    }
+
     public function session($songId){
         $playlist = new PlaylistClass();
         $playlist->addSong($songId);
@@ -30,6 +44,20 @@ class PlaylistController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
+            $list = Session::pull('queue');
+            $songs = Songs::all();
+            foreach($songs as $song){
+                $key = array_search($song->id, $list);
+                if($key !== false){
+                    $songList = $list[$key];
+                    SavedListsSongs::create([
+                        'song_id' => $songList,
+                        'saved_lists_id' => $playlist->id,
+                    ]);
+                }
+            }
+
+                        
         return redirect('/playlist');
     }
 }

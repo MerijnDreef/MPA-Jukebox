@@ -9,8 +9,15 @@ class SavedListsSongs extends Model
 {
     use HasFactory;
 
-    public function SavedListsSongs()
+    protected $guarded = [];
+
+    public function SavedLists()
     {
-        return $this->hasMany(Songs::class);
+        return $this->belongsTo(SavedLists::class);
+    }
+
+    public function Songs()
+    {
+        return $this->belongsTo(Songs::class);
     }
 }

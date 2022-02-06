@@ -8,9 +8,16 @@ use Illuminate\Database\Eloquent\Model;
 class Songs extends Model
 {
     use HasFactory;
+
+    protected $guarded = [];
     
     public function Genre()
     {
         return $this->belongsTo(Genre::class);
+    }
+
+    public function SavedListsSongs()
+    {
+        return $this->hasMany(SavedListsSongs::class);
     }
 }

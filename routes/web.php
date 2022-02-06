@@ -32,7 +32,8 @@ Route::get('songs', [SongController::class, 'getSong'])->name('song');
 Route::get('songs/{songId}', [PlaylistController::class, 'create']);
 Route::post('songs/{songId}', [PlaylistController::class, 'session']);
 
-Route::get('playlist', [SongController::class, 'getSongPlayList'], session(['key' => 'value']))->name('songPlayList');
+Route::get('playlists', [PlaylistController::class, 'index']);
+Route::get('playlists/{playlistId}', [PlaylistController::class, 'show']);
 
 Route::get('queue', [QueueController::class, 'index']);
 Route::post('queue/delete/{songId}', [QueueController::class, 'delete']);

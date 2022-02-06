@@ -16,8 +16,8 @@ class SavedLists extends Model
         return $this->belongsTo(User::class);
     }
 
-    // public function playlistSong()
-    // {
-    //     return $this->hasMany(PlaylistSong::class);
-    // }
+    public function SavedListsSongs()
+    {
+        return $this->hasMany(SavedListsSongs::class);
+    }
 }

@@ -3,9 +3,6 @@
 <title>Playlist</title>
 
 <body>
-<!-- @session -->
-
-{{ $values }}
 @auth
     <h3>{{ auth()->User()->name }}</h3>
     <a href="/logout">Logout</a>
@@ -14,18 +11,20 @@
     <a href="/login">Log in</a>
     <a href="/register">register</a>
 @endguest
+<br>
 <a href="/">Take me back</a>
 <h1>Well it looks like you are making a playlist</h1>
 
-@foreach($songs as $song)
-    <p>loop the songs that belong to the list</p>
-   
-   <ul>
-        <li>{{ $song->name }}</li>
-        <li>{{ $song->artist_name }}</li>
-        <li>{{ gmdate("i:s", $song->duration) }}</li>
-        <li><a href='/queue/{{$song->id}}'>submit</a></li>
-    </ul>
+@foreach($savedList as $data)
+        {{ dd($data) }}
+        @foreach($data->savedListsSongs as $savedListSong)
+        {{ dd($savedListSong) }}
+        <ul>
+            <li>{{ $savedListSong->song->name }}</li>
+            <li>{{ $savedListSong->song->artist_name }}</li>
+            <li>{{ gmdate("i:s", $savedListSong->song->duration) }}</li>
+        </ul>
+    @endforeach
 @endforeach
 
 @auth
