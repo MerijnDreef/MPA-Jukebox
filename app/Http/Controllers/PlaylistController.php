@@ -20,7 +20,6 @@ class PlaylistController extends Controller
 
     public function show($playlistId){
         $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();
-        dd($savedList);
         return view('playlist', ['savedList' => $savedList]);
     }
 
@@ -51,7 +50,7 @@ class PlaylistController extends Controller
                 if($key !== false){
                     $songList = $list[$key];
                     SavedListsSongs::create([
-                        'song_id' => $songList,
+                        'songs_id' => $songList,
                         'saved_lists_id' => $playlist->id,
                     ]);
                 }
