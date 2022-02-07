@@ -23,6 +23,44 @@ class PlaylistController extends Controller
         return view('playlist', ['savedList' => $savedList]);
     }
 
+    public function update(SavedLists $savedLists){
+        return view('saveList', ['savedLists' => $savedLists]);
+    }
+
+    public function edit(SavedLists $savedList){
+        // dd($savedList);
+        $attributes = request()->validate([
+            'name' => 'required'
+        ]); 
+
+        $savedList->update($attributes);
+
+        return redirect('playlists/' . $savedList->id);
+    }
+
+    public function delete($playlistId){
+        $savedLists = SavedLists::find($playlistId);
+        $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
+
+        foreach($savedListsSongs as $savedListsSong){
+            if($playlistId == $savedListsSong->saved_lists_id){
+                SavedListsSongs::where('saved_lists_id', $playlistId)->delete();
+            }
+        }
+        SavedLists::where('id', $playlistId)->delete();
+
+        return redirect('playlists');
+    }
+
+    public function addSongToPlaylist($playlistId, $songId){
+        SavedListsSongs::create([
+            'saved_lists_id' => $playlistId,
+            'song_id' => $songId
+        ]);
+
+        return redirect('playlists/' . $playlistId);
+    }
+
     public function session($songId){
         $playlist = new PlaylistClass();
         $playlist->addSong($songId);
@@ -57,6 +95,6 @@ class PlaylistController extends Controller
             }
 
                         
-        return redirect('/playlist');
+        return redirect('/playlists');
     }
 }

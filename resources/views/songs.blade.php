@@ -22,10 +22,15 @@
         <li>{{ $song->artist_name }}</li>
         <li>{{ gmdate("i:s", $song->duration) }}</li>
         <li>
-            <form action="/songs/{{ $song->id }}" method="post">
-                @csrf
-                <button>Add song</button>
-            </form>
+            @if(Request::url() == route('songs'))
+                <form action="/songs/{{ $song->id }}" method="post">
+                    @csrf
+                    <button>Add song</button>
+                </form>
+
+            @elseif(Request::url() == (route('playlists').'/'.request()->route('playlistId').'/addSongs'))
+                <p>:)</p>
+            @endif
         </li>
     </ul>
 @endforeach

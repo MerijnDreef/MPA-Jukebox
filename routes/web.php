@@ -28,12 +28,18 @@ Route::get('/login', [SessionController::class, 'create']);
 Route::post('/login', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy']);
 
-Route::get('songs', [SongController::class, 'getSong'])->name('song');
+Route::get('songs', [SongController::class, 'getSong'])->name('songs');
 Route::get('songs/{songId}', [PlaylistController::class, 'create']);
 Route::post('songs/{songId}', [PlaylistController::class, 'session']);
 
-Route::get('playlists', [PlaylistController::class, 'index']);
+Route::get('playlists', [PlaylistController::class, 'index'])->name('playlists');
 Route::get('playlists/{playlistId}', [PlaylistController::class, 'show']);
+Route::post('playlists/{savedList}/saveList', [PlaylistController::class, 'edit']);
+Route::get('playlists/{savedList}/saveList', [PlaylistController::class, 'update']);
+Route::post('playlists/delete/{playlistId}', [PlaylistController::class, 'delete']);
+
+Route::get('playlists/{savedList}/addSongs', [SongController::class, 'getSong']);
+Route::post('playlists/{savedList}/addSongs/{song_id}', [PlaylistController::class, 'addSongToPlaylist']);
 
 Route::get('queue', [QueueController::class, 'index']);
 Route::post('queue/delete/{songId}', [QueueController::class, 'delete']);

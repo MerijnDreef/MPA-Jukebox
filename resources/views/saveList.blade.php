@@ -13,13 +13,13 @@
 @endguest
 <br>
 <a href="/">Take me back</a>
-<h1>Choose a playlist</h1>
+<h1>Edit that playlist my dude</h1>
 
-@foreach($savedLists as $savedList)
-   <ul>
-        <li>{{ $savedList->name }}</li>
-        <li><a href='/playlists/{{$savedList->id}}'>Go here</a></li>
-    </ul>
-@endforeach
-
+<h1>Change the name</h1>
+    <form action="" method="POST">
+        @csrf
+        <input type="text" name="name">
+        <input type="submit" value="Update">
+    </form>
+     
 </body>

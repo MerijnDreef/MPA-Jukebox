@@ -13,25 +13,29 @@
 @endguest
 <br>
 <a href="/">Take me back</a>
-<h1>Well it looks like you are making a playlist</h1>
+<h1>Specific playlist my boy</h1>
 
 @foreach($savedList as $data)
-        {{ dd($data) }}
+<h1>{{ $data->name }}</h1>
+    
+        <a href="{{$data->id}}/saveList">edit</a>
+        <form action="delete/{{$data->id}}" method="POST">
+            @csrf
+            <button>Delete</button>
+        </form>
+        <br>
+        <a href="{{$data->id}}/addSongs">Add a song</a>
         @foreach($data->savedListsSongs as $savedListSong)
-        {{ dd($savedListSong) }}
         <ul>
-            <li>{{ $savedListSong->song->name }}</li>
-            <li>{{ $savedListSong->song->artist_name }}</li>
-            <li>{{ gmdate("i:s", $savedListSong->song->duration) }}</li>
+            <li>{{ $savedListSong->songs->name }}</li>
+            <li>{{ $savedListSong->songs->artist_name }}</li>
+            <li>{{ $savedListSong->songs->duration }}</li>
         </ul>
+        <form action="" method="POST">
+            <input type="submit" value="Delete">
+        </form>
     @endforeach
 @endforeach
 
-@auth
-    <p>Like put something here to make the list</p>
-    <form>
-        <input name="submit" id="submit" value="Make playlist">
-    </form>
-@endauth
 <p>reminder, you have to add all the songs durations in 1 full list duration</p>
 </body>
