@@ -38,8 +38,10 @@ Route::post('playlists/{savedList}/saveList', [PlaylistController::class, 'edit'
 Route::get('playlists/{savedList}/saveList', [PlaylistController::class, 'update']);
 Route::post('playlists/delete/{playlistId}', [PlaylistController::class, 'delete']);
 
-Route::get('playlists/{savedList}/addSongs', [SongController::class, 'getSong']);
-Route::post('playlists/{savedList}/addSongs/{song_id}', [PlaylistController::class, 'addSongToPlaylist']);
+Route::post('playlists/delete/{playlistId}/{songId}', [PlaylistController::class, 'removeSongFromplaylist']);
+
+Route::get('playlists/{playlistId}/addSongs', [SongController::class, 'getSong']);
+Route::post('playlists/{playlistId}/addSongs/{song_id}', [PlaylistController::class, 'addSongToPlaylist']);
 
 Route::get('queue', [QueueController::class, 'index']);
 Route::post('queue/delete/{songId}', [QueueController::class, 'delete']);

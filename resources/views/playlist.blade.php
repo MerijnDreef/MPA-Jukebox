@@ -17,11 +17,12 @@
 
 @foreach($savedList as $data)
 <h1>{{ $data->name }}</h1>
-    
+<h3>Total duration: {{ $totalDuration['duration'] }}</h3>
+
         <a href="{{$data->id}}/saveList">edit</a>
         <form action="delete/{{$data->id}}" method="POST">
             @csrf
-            <button>Delete</button>
+            <button>Delete Playlist</button>
         </form>
         <br>
         <a href="{{$data->id}}/addSongs">Add a song</a>
@@ -31,11 +32,10 @@
             <li>{{ $savedListSong->songs->artist_name }}</li>
             <li>{{ $savedListSong->songs->duration }}</li>
         </ul>
-        <form action="" method="POST">
-            <input type="submit" value="Delete">
+        <form action="/playlists/delete/{{$data->id}}/{{$savedListSong->songs->id}}" method="POST">
+            @csrf
+           <button>Delete Song</button>
         </form>
     @endforeach
 @endforeach
-
-<p>reminder, you have to add all the songs durations in 1 full list duration</p>
 </body>

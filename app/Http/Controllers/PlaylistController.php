@@ -20,7 +20,12 @@ class PlaylistController extends Controller
 
     public function show($playlistId){
         $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();
-        return view('playlist', ['savedList' => $savedList]);
+        $totalDuration = $this->countTheTime($playlistId);
+
+        return view('playlist', [
+            'savedList' => $savedList,
+            'totalDuration' => $totalDuration
+        ]);
     }
 
     public function update(SavedLists $savedLists){
@@ -52,10 +57,21 @@ class PlaylistController extends Controller
         return redirect('playlists');
     }
 
+    public function removeSongFromplaylist($playlistId, $songId){
+        $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
+        foreach($savedListsSongs as $savedListSong){
+            if($playlistId == $savedListSong->saved_lists_id && $songId == $savedListSong->songs_id){
+                $savedListSong->delete($songId);
+
+            }
+        }
+        return redirect('playlists/' . $playlistId);
+    }
+
     public function addSongToPlaylist($playlistId, $songId){
         SavedListsSongs::create([
             'saved_lists_id' => $playlistId,
-            'song_id' => $songId
+            'songs_id' => $songId
         ]);
 
         return redirect('playlists/' . $playlistId);
@@ -96,5 +112,39 @@ class PlaylistController extends Controller
 
                         
         return redirect('/playlists');
+    }
+
+    public function countTheTime($playlistId){
+        $combineSongs = [];
+        $duration = 0;
+
+        $savedListsSongs = savedListsSongs::where('saved_lists_id', $playlistId)->get();
+
+        foreach($savedListsSongs as $savedListSong){
+            $songs = Songs::where('id', $savedListSong->songs_id)->get();
+
+            foreach($songs as $song){
+                $duration += $this->timeToSeconds($song->duration);
+            }
+
+            $combineSongs = [
+                'data' => $savedListSong->saved_lists_id,
+                'duration' => $duration
+            ];
+        }
+        $combineSongs['duration'] = $this->secondsToTime($combineSongs['duration']);
+
+        return $combineSongs;
+    }
+
+    public function timeToSeconds($time){
+        $parts = explode(':', $time);
+        return $parts[0] * 60 + $parts[1];
+    }
+
+    public function secondsToTime($seconds){
+        $minutes = floor($seconds / 60);
+        $seconds = ($seconds % 60);
+        return sprintf('%02d:%02d', $minutes, $seconds);
     }
 }

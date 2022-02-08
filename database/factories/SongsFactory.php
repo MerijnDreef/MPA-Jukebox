@@ -17,7 +17,8 @@ class SongsFactory extends Factory
         return [
             'name' => $this->faker->sentence(),
             'artist_name' => $this->faker->name(),
-            'duration' => $this->faker->numberBetween(1, 10),
+            // 'duration' => $this->faker->numberBetween(1, 10),
+            'duration' => $this->faker->numberBetween(1, 10) . ':' . $this->faker->numberBetween(1, 59),
             'genre_id' => Genre::factory() 
         ];
     }
