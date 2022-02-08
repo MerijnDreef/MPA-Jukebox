@@ -13,7 +13,7 @@
 @endguest
 <br>
 <a href="/">Take me back</a>
-<h1>Edit that playlist my dude</h1>
+<h1>Edit playlist</h1>
 
 <h1>Change the name</h1>
     <form action="" method="POST">

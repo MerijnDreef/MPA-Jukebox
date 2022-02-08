@@ -6,7 +6,6 @@
 <a href="/">Take me back</a>
 <h1>Time to login</h1>
 
-<p>some text right here, also show me how to login</p>
 <a href="/register">register</a>
 <form method="POST" action="/login">
     {{ csrf_field() }}

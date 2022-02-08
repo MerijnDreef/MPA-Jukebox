@@ -13,7 +13,7 @@
 @endguest
 <br>
 <a href="/">Take me back</a>
-<h1>Specific playlist my boy</h1>
+<h1>Specific playlist</h1>
 
 @foreach($savedList as $data)
 <h1>{{ $data->name }}</h1>
