@@ -17,21 +17,23 @@
 <a href="/songs">Add your Songs</a>
 
 @if(session()->has('queue'))
-    @foreach(session()->get('queue') as $list)   
-     
-        @foreach($songs as $song)
-            @if($list == $song->id)
-            <ul>
-                <li>Name: {{ $song->name }}</li>
-                <li>Genre: {{ $song->genre->name }}</li>
-                <li> {{ $song->duration }}</li>
-                <li>Artist: {{ $song->artist_name }}</li>
-                <form action="/queue/delete/{{$song->id}}" method="POST">
-                    @csrf
-                    <button>Remove</button>
-                </form>
-            </ul>
-            @endif
+    @foreach($totalDurationQueue as $duration)
+        <h2>Queue Duration: {{ $duration }}</h2>
+        @foreach(session()->get('queue') as $list)  
+            @foreach($songs as $song)
+                @if($list == $song->id)
+                <ul>
+                    <li>Name: {{ $song->name }}</li>
+                    <li>Genre: {{ $song->genre->name }}</li>
+                    <li> {{ $song->duration }}</li>
+                    <li>Artist: {{ $song->artist_name }}</li>
+                    <form action="/queue/delete/{{$song->id}}" method="POST">
+                        @csrf
+                        <button>Remove</button>
+                    </form>
+                </ul>
+                @endif
+            @endforeach
         @endforeach
     @endforeach
 @endif

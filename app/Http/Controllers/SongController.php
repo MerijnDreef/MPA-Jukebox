@@ -19,6 +19,10 @@ class SongController extends Controller
         $genres = Genre::where("id", $genre_id)->get();
         return view('genreSpecific', compact('songs', 'genres'));
     }
+
+    public function getSongInfo(){
+        $song = Songs::where("", )
+    }
     
     public function addToSessionPlaylist(Request $request, $id) {
         if(!$request->session()->has("PlaylistStorage")) {

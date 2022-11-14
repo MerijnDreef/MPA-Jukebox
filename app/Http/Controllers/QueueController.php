@@ -24,8 +24,14 @@ class QueueController extends Controller
         $songs = Songs::all();
         $genres = Genre::all();
         $temp_list = Session::get('queue');
-        $totalDurationQueue = $this->CountTheTime($temp_list);
+        if($temp_list != null){
+            $totalDurationQueue = $this->CountTheTime($temp_list);
+        }
+        else {
+            $totalDurationQueue = ['00:00'];
+        }
 
+        Session::regenerate();
 
 
         return view('queue', [
@@ -42,10 +48,10 @@ class QueueController extends Controller
 
         $allSongs = Songs::all();
 
-        foreach($temp_lists as $queue){
-            $key = array_search($allSongs->id, $queue);
+        foreach($allSongs as $songGet){
+            $key = array_search($songGet->id, $temp_lists);
             if($key !== false){
-                $songs = Songs::where('id', $queue)->get();
+                $songs = Songs::where('id', $songGet->id)->get();
                 
                 foreach($songs as $song){
                     $duration += $this->timeToSeconds($song->duration);
