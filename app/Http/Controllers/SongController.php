@@ -20,8 +20,10 @@ class SongController extends Controller
         return view('genreSpecific', compact('songs', 'genres'));
     }
 
-    public function getSongInfo(){
-        $song = Songs::where("", )
+    public function getSongInfo($songId){
+        $song = Songs::where("id", $songId)->get();
+
+        return view('songInfo', compact('song'));
     }
     
     public function addToSessionPlaylist(Request $request, $id) {

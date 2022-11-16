@@ -32,7 +32,8 @@ Route::get('songs', [SongController::class, 'getSong'])->name('songs');
 Route::get('songs/{songId}', [PlaylistController::class, 'create']);
 Route::post('songs/{songId}', [PlaylistController::class, 'session']);
 
-Route::get('songInfo', [SongController::class ''])->name('songInfo');
+// Route::get('songInfo/{songId}', [SongController::class, 'getSongInfo'])->name('songInfo');
+Route::post('songInfo/{songId}', [SongController::class, 'getSongInfo'])->name('songInfo');
 
 Route::get('playlists', [PlaylistController::class, 'index'])->name('playlists');
 Route::get('playlists/{playlistId}', [PlaylistController::class, 'show']);

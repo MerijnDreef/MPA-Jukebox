@@ -46,12 +46,8 @@ class QueueController extends Controller
         $combineSongs = [];
         $duration = 0;
 
-        $allSongs = Songs::all();
-
-        foreach($allSongs as $songGet){
-            $key = array_search($songGet->id, $temp_lists);
-            if($key !== false){
-                $songs = Songs::where('id', $songGet->id)->get();
+        foreach($temp_lists as $templist){
+                $songs = Songs::where('id', $templist)->get();
                 
                 foreach($songs as $song){
                     $duration += $this->timeToSeconds($song->duration);
@@ -60,8 +56,6 @@ class QueueController extends Controller
                 $combineSongs = [
                     'duration' => $duration
                 ];
-            }
-           
         }
         $combineSongs['duration'] = $this->secondsToTime($combineSongs['duration']);
         return $combineSongs;

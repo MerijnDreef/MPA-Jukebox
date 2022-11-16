@@ -1,27 +1,25 @@
 <!DOCTYPE html>
 
-<title>Songs</title>
+<title>Playlist</title>
 
 <body>
 @auth
-<p>{{ auth()->User()->name }}</p>
-<a href="/logout">Logout</a>
+    <h3>{{ auth()->User()->name }}</h3>
+    <a href="/logout">Logout</a>
 @endauth
 @guest
-<a href="/login">Log in</a>
-<a href="/register">register</a>
+    <a href="/login">Log in</a>
+    <a href="/register">register</a>
 @endguest
-<a href="/">Take me back</a>
-<h1>All songs</h1>
-<a href="/queue">Queue</a>
 
- @foreach($songs as $song) 
-    <ul>
-        <li>{{ $song->name }}</li>
-        <form action="/songInfo/{{ $song->id }}" method="post">
-            @csrf
-            <button>info</button>
-        </form>
+<br>
+<a href="/">Take me back</a>
+
+@foreach($song as $songInfo)
+<ul>
+        <li>{{ $songInfo->name }}</li>
+        <li>{{ $songInfo->artist_name }}</li>
+        <li>{{ $songInfo->duration }}</li>
         <li>
             @if(Request::url() == route('songs'))
                 <form action="/songs/{{ $song->id }}" method="post">
@@ -33,8 +31,12 @@
                     @csrf
                     <button>Add this song</button>
                 </form>
+            @elseif(Request::url() == (route('songInfo').'/'.request()->route('songId')) )
+                @csrf
+            <p>I work</p>
             @endif
         </li>
     </ul>
 @endforeach
+
 </body>
