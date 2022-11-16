@@ -57,6 +57,7 @@ class QueueController extends Controller
                     'duration' => $duration
                 ];
         }
+        
         $combineSongs['duration'] = $this->secondsToTime($combineSongs['duration']);
         return $combineSongs;
     }

@@ -20,22 +20,6 @@
         <li>{{ $songInfo->name }}</li>
         <li>{{ $songInfo->artist_name }}</li>
         <li>{{ $songInfo->duration }}</li>
-        <li>
-            @if(Request::url() == route('songs'))
-                <form action="/songs/{{ $song->id }}" method="post">
-                    @csrf
-                    <button>Add song</button>
-                </form>
-            @elseif(Request::url() == (route('playlists').'/'.request()->route('playlistId').'/addSongs'))    
-                <form action="/playlists/{{request()->route('playlistId')}}/addSongs/{{$song->id}}" method="POST">
-                    @csrf
-                    <button>Add this song</button>
-                </form>
-            @elseif(Request::url() == (route('songInfo').'/'.request()->route('songId')) )
-                @csrf
-            <p>I work</p>
-            @endif
-        </li>
     </ul>
 @endforeach
 
