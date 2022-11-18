@@ -19,8 +19,10 @@
 @foreach($songs as $song) 
     <ul>
         <li>{{ $song->name }}</li> 
-        <li>{{ $song->artist_name }}</li>
-        <li>{{ $song->duration }}</li>
+        <form action="/songInfo/{{ $song->id }}" method="post">
+            @csrf
+            <button>info</button>
+        </form>
     </ul>
 @endforeach
 </body>
