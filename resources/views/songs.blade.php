@@ -18,17 +18,22 @@
  @foreach($songs as $song) 
     <ul>
         <li>{{ $song->name }}</li>
-        <form action="/songInfo/{{ $song->id }}" method="post">
-            @csrf
-            <button>info</button>
-        </form>
+      
         <li>
             @if(Request::url() == route('songs'))
+                <form action="/songInfo/{{ $song->id }}" method="post">
+                    @csrf
+                    <button>info</button>
+                </form>
                 <form action="/songs/{{ $song->id }}" method="post">
                     @csrf
                     <button>Add song</button>
                 </form>
             @elseif(Request::url() == (route('playlists').'/'.request()->route('playlistId').'/addSongs'))    
+            <form action="/playlists/{{request()->route('playlistId')}}/addSongs/songInfoPlaylist/{{ $song->id }}" method="post">
+                    @csrf
+                    <button>info (playlist)</button>
+                </form>
                 <form action="/playlists/{{request()->route('playlistId')}}/addSongs/{{$song->id}}" method="POST">
                     @csrf
                     <button>Add this song</button>

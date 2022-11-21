@@ -43,6 +43,8 @@ Route::post('playlists/delete/{playlistId}', [PlaylistController::class, 'delete
 
 Route::post('playlists/delete/{playlistId}/{songId}', [PlaylistController::class, 'removeSongFromplaylist']);
 
+Route::post('playlists/{playlistId}/addSongs/songInfoPlaylist/{songId}', [SongController::class, 'getSongInfo']);
+
 Route::get('playlists/{playlistId}/addSongs', [SongController::class, 'getSong']);
 Route::post('playlists/{playlistId}/addSongs/{song_id}', [PlaylistController::class, 'addSongToPlaylist']);
 
