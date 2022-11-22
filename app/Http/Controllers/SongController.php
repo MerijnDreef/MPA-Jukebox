@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Songs;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
+use App\Models\SavedLists;
 use App\Models\SavedListsSongs;
 
 class SongController extends Controller
@@ -23,7 +25,11 @@ class SongController extends Controller
     public function getSongInfo($songId){
         $song = Songs::where("id", $songId)->get();
 
-        return view('songInfo', compact('song'));
+        if(Auth::user() != null){
+            $userId = Auth::user()->id;
+            $savedLists = SavedLists::where('user_id', $userId)->get();
+        }
+        return view('songInfo', compact('song', 'savedLists'));
     }
     
     public function addToSessionPlaylist(Request $request, $id) {

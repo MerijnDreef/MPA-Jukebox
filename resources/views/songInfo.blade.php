@@ -22,17 +22,22 @@
         <li>{{ $songInfo->duration }}</li>
     </ul>
 
-    @if(Request::url() == route('songsInfo').'/'.request()->route('song_id'))
-        <form action="/songs/{{ $song->id }}" method="post">
+        <form action="/songs/{{ $songInfo->id }}" method="post">
             @csrf
-            <button>Add song</button>
+            <button>Add song to queue</button>
         </form>
-    @elseif(Request::url() == (route('playlists').'/'.request()->route('playlistId').'/addSongs/songInfoPlaylist.'/'.request()->route('songId'))
-        <form action="/playlists/{{request()->route('playlistId')}}/addSongs/{{$song->id}}" method="POST">
+
+        @auth
+        <form action="/playlists/{{request()->route('playlistId')}}/addSongs/{{$songInfo->id}}" method="POST">
             @csrf
-            <button>Add this song</button>
+            <select>
+                @foreach($savedLists as $savedList)
+                <option value="{{ $savedList->id }}">{{ $savedList->name }}</option>
+                @endforeach
+            </select>            
+            <button>Add song to playlist</button>
         </form>
-    @endif
+        @endauth
 @endforeach
 
 
