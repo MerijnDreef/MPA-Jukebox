@@ -77,6 +77,15 @@ class PlaylistController extends Controller
         return redirect('playlists/' . $playlistId);
     }
 
+    public function songInfoPlaylist(Request $request, $songId){
+        SavedListsSongs::create([
+            'saved_lists_id' => $request->savedLists,
+            'songs_id' => $songId
+        ]);
+
+        return redirect('songs');
+    }
+
     public function session($songId){
         $playlist = new PlaylistClass();
         $playlist->addSong($songId);

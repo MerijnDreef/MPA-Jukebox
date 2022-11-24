@@ -28,9 +28,9 @@
         </form>
 
         @auth
-        <form action="/playlists/{{request()->route('playlistId')}}/addSongs/{{$songInfo->id}}" method="POST">
+        <form action="{{ $songInfo->id }}/add" method="POST">
             @csrf
-            <select>
+            <select name="listItems">
                 @foreach($savedLists as $savedList)
                 <option value="{{ $savedList->id }}">{{ $savedList->name }}</option>
                 @endforeach
