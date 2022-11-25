@@ -79,7 +79,7 @@ class PlaylistController extends Controller
 
     public function songInfoPlaylist(Request $request, $songId){
         SavedListsSongs::create([
-            'saved_lists_id' => $request->savedLists,
+            'saved_lists_id' => $request->playlists,
             'songs_id' => $songId
         ]);
 

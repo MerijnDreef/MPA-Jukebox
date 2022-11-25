@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 
-<title>Playlist</title>
+<title>SongInfo</title>
 
 <body>
 @auth
@@ -16,7 +16,7 @@
 <a href="/">Take me back</a>
 
 @foreach($song as $songInfo)
-<ul>
+    <ul>
         <li>{{ $songInfo->name }}</li>
         <li>{{ $songInfo->artist_name }}</li>
         <li>{{ $songInfo->duration }}</li>
@@ -30,7 +30,7 @@
         @auth
         <form action="{{ $songInfo->id }}/add" method="POST">
             @csrf
-            <select name="listItems">
+            <select name="playlists" id="playlists">
                 @foreach($savedLists as $savedList)
                 <option value="{{ $savedList->id }}">{{ $savedList->name }}</option>
                 @endforeach
@@ -39,7 +39,5 @@
         </form>
         @endauth
 @endforeach
-
-
 
 </body>

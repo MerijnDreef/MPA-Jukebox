@@ -28,8 +28,10 @@ class SongController extends Controller
         if(Auth::user() != null){
             $userId = Auth::user()->id;
             $savedLists = SavedLists::where('user_id', $userId)->get();
+            return view('songInfo', compact('song', 'savedLists'));
+        }else{
+            return view('songInfo', compact('song'));
         }
-        return view('songInfo', compact('song', 'savedLists'));
     }
     
     public function addToSessionPlaylist(Request $request, $id) {
