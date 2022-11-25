@@ -13,19 +13,27 @@ use App\Models\SavedListsSongs;
 class PlaylistController extends Controller
 {
     public function index(){
-        $userId = Auth::user()->id;
-        $savedLists = SavedLists::where('user_id', $userId)->get();
-        return view('playlists', ['savedLists' => $savedLists]);
+       if(Auth::user() != null) {
+            $userId = Auth::user()->id;
+            $savedLists = SavedLists::where('user_id', $userId)->get();
+            return view('playlists', ['savedLists' => $savedLists]);   
+        }else{
+            return redirect()->to('/');
+        }
     }
 
     public function show($playlistId){
-        $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();
-        $totalDuration = $this->countTheTime($playlistId);
+        if(Auth::user() != null) {
+            $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();
+            $totalDuration = $this->countTheTime($playlistId);
 
-        return view('playlist', [
-            'savedList' => $savedList,
-            'totalDuration' => $totalDuration
-        ]);
+            return view('playlist', [
+                'savedList' => $savedList,
+                'totalDuration' => $totalDuration
+            ]);
+        }else{
+            return redirect()->to('/');
+        }
     }
 
     public function update(SavedLists $savedLists){
@@ -33,48 +41,64 @@ class PlaylistController extends Controller
     }
 
     public function edit(SavedLists $savedList){
-        // dd($savedList);
-        $attributes = request()->validate([
-            'name' => 'required'
-        ]); 
+        if(Auth::user() != null) {
+            $attributes = request()->validate([
+                'name' => 'required'
+            ]); 
 
-        $savedList->update($attributes);
+            $savedList->update($attributes);
 
-        return redirect('playlists/' . $savedList->id);
+            return redirect('playlists/' . $savedList->id);
+        }else{
+            return redirect()->to('/');
+        }
     }
 
+
     public function delete($playlistId){
-        $savedLists = SavedLists::find($playlistId);
-        $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
+        if(Auth::user() != null) {
+            $savedLists = SavedLists::find($playlistId);
+            $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
 
-        foreach($savedListsSongs as $savedListsSong){
-            if($playlistId == $savedListsSong->saved_lists_id){
-                SavedListsSongs::where('saved_lists_id', $playlistId)->delete();
+            foreach($savedListsSongs as $savedListsSong){
+                if($playlistId == $savedListsSong->saved_lists_id){
+                    SavedListsSongs::where('saved_lists_id', $playlistId)->delete();
+                }
             }
-        }
-        SavedLists::where('id', $playlistId)->delete();
+            SavedLists::where('id', $playlistId)->delete();
 
-        return redirect('playlists');
+            return redirect('playlists');
+        }else{
+            return redirect()->to('/');
+        }
     }
 
     public function removeSongFromplaylist($playlistId, $songId){
-        $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
-        foreach($savedListsSongs as $savedListSong){
-            if($playlistId == $savedListSong->saved_lists_id && $songId == $savedListSong->songs_id){
-                $savedListSong->delete($songId);
+        if(Auth::user() != null) {
+            $savedListsSongs = SavedListsSongs::where('saved_lists_id', $playlistId)->get();
+            foreach($savedListsSongs as $savedListSong){
+                if($playlistId == $savedListSong->saved_lists_id && $songId == $savedListSong->songs_id){
+                    $savedListSong->delete($songId);
 
+                }
             }
+            return redirect('playlists/' . $playlistId);
+        }else{
+            return redirect()->to('/');
         }
-        return redirect('playlists/' . $playlistId);
     }
 
     public function addSongToPlaylist($playlistId, $songId){
-        SavedListsSongs::create([
-            'saved_lists_id' => $playlistId,
-            'songs_id' => $songId
-        ]);
+        if(Auth::user() != null) {
+            SavedListsSongs::create([
+                'saved_lists_id' => $playlistId,
+                'songs_id' => $songId
+            ]);
 
-        return redirect('playlists/' . $playlistId);
+            return redirect('playlists/' . $playlistId);
+        }else{
+            return redirect()->to('/');
+        }
     }
 
     public function songInfoPlaylist(Request $request, $songId){
@@ -156,4 +180,11 @@ class PlaylistController extends Controller
         $seconds = ($seconds % 60);
         return sprintf('%02d:%02d', $minutes, $seconds);
     }
+
+    public function userCheck(){
+        //    $user = session::pull('user');
+           if(Auth::user() == null) {
+            return redirect()->to('/');
+           }
+        }
 }
