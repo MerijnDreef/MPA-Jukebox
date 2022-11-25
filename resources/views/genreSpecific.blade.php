@@ -23,6 +23,10 @@
             @csrf
             <button>info</button>
         </form>
+        <form action="/songs/{{ $song->id }}" method="post">
+            @csrf
+            <button>Add song</button>
+        </form>
     </ul>
 @endforeach
 </body>
