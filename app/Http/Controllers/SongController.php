@@ -11,6 +11,8 @@ use App\Models\SavedListsSongs;
 
 class SongController extends Controller
 {
+    // Handles getting the songs
+
     public function getSong(){
         $songs = Songs::all();
         return view('songs', compact('songs'));

@@ -7,6 +7,8 @@ use App\Models\User;
 
 class RegistrationController extends Controller
 {
+    // Handles registration of new users
+
     public function create()
     {
         return view('register');

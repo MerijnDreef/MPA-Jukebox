@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 
 class UserController extends Controller
 {
+    // Handles the user
+
     /**
      * Display a listing of the resource.
      *

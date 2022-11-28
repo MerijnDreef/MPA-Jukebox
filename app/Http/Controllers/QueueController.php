@@ -7,23 +7,19 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Songs;
 use App\Models\Genre;
 use App\Classes\PlaylistClass;
+use App\Http\Controllers\SessionController;
 
 class QueueController extends Controller
 {
-    // function push($song){
-    //     Session::push('queue', $song);
-    //     $queueList = Session::get('queue');
-    //     if ($queueList == null) {
-    //         $queueList = [];
-    //     }
-    //     return view('queue', compact('queueList'));
-    // } 
+    // Handles the queue with it's time and songs it needs to get 
 
     public function index(){
+        $SessionController = (new SessionController);
         
         $songs = Songs::all();
         $genres = Genre::all();
-        $temp_list = Session::get('queue');
+        // $temp_list = Session::get('queue');
+        $temp_list = $SessionController->getSessionQueue();
         if($temp_list != null){
             $totalDurationQueue = $this->CountTheTime($temp_list);
         }
@@ -32,6 +28,7 @@ class QueueController extends Controller
         }
 
         Session::regenerate();
+        // (new SessionController)->SessionRegenerate();
 
 
         return view('queue', [

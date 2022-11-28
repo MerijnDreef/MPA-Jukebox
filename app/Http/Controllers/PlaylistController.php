@@ -12,6 +12,8 @@ use App\Models\SavedListsSongs;
 
 class PlaylistController extends Controller
 {
+    // Handles the playlists with it's time, what it needs to get and putting songs in playlists
+
     public function index(){
        if(Auth::user() != null) {
             $userId = Auth::user()->id;
@@ -180,11 +182,4 @@ class PlaylistController extends Controller
         $seconds = ($seconds % 60);
         return sprintf('%02d:%02d', $minutes, $seconds);
     }
-
-    public function userCheck(){
-        //    $user = session::pull('user');
-           if(Auth::user() == null) {
-            return redirect()->to('/');
-           }
-        }
 }
