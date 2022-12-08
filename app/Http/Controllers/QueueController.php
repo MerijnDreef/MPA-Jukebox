@@ -13,6 +13,7 @@ class QueueController extends Controller
 {
     // Handles the queue with it's time and songs it needs to get 
 
+    //Put the function in sessionController
     public function index(){
         $SessionController = (new SessionController);
         

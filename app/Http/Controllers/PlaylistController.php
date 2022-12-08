@@ -122,6 +122,7 @@ class PlaylistController extends Controller
         return view('songs');
     }
     
+    //put the function in Session controller
     public function store(Request $request){
         $this->validate(request(),[
             'name' => ['required', 'string', 'max:255']
