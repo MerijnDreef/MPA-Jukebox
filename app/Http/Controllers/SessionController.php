@@ -4,21 +4,62 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\QueueController;
+
 
 class SessionController extends Controller
 {
     // Handles the session
 
-    public function getSessionQueue(){
-        // $session = Session::get('queue');
-        // return $session;
-        return Session::get('queue');
-        // Session::get('queue');
+    // This function is from QueueController
+    public function index(){        
+        $songs = Songs::all();
+        $genres = Genre::all();
+        $temp_list = Session::get('queue');
+
+        if($temp_list != null){
+            $totalDurationQueue = (new QueueController)->CountTheTime($temp_list);
+        }
+        else {
+            $totalDurationQueue = ['00:00'];
+        }
+
+        Session::regenerate();
+
+
+        return view('queue', [
+            'songs' => $songs,
+            'genres' => $genres,
+            'totalDurationQueue' => $totalDurationQueue
+        ]);
     }
 
-    public function SessionRegenerate(){
-        // return Session::regenerate();
-        Session::regenerate();
+    // This function is from PlaylistController
+    public function storePlaylist(Request $request){
+        $this->validate(request(),[
+            'name' => ['required', 'string', 'max:255']
+            ]); 
+                   
+            $playlist = SavedLists::create([
+                'name' => $request->name,
+                'user_id' => Auth::user()->id,
+            ]);
+
+            $list = Session::pull('queue');
+            $songs = Songs::all();
+            foreach($songs as $song){
+                $key = array_search($song->id, $list);
+                if($key !== false){
+                    $songList = $list[$key];
+                    SavedListsSongs::create([
+                        'songs_id' => $songList,
+                        'saved_lists_id' => $playlist->id,
+                    ]);
+                }
+            }
+
+                        
+        return redirect('/playlists');
     }
 
     public function create()

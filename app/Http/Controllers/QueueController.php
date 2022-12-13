@@ -7,38 +7,37 @@ use Illuminate\Support\Facades\Session;
 use App\Models\Songs;
 use App\Models\Genre;
 use App\Classes\PlaylistClass;
-use App\Http\Controllers\SessionController;
 
 class QueueController extends Controller
 {
     // Handles the queue with it's time and songs it needs to get 
 
     //Put the function in sessionController
-    public function index(){
-        $SessionController = (new SessionController);
+    // public function index(){
+    //     $SessionController = (new SessionController);
         
-        $songs = Songs::all();
-        $genres = Genre::all();
-        // $temp_list = Session::get('queue');
-        $temp_list = $SessionController->getSessionQueue();
-        if($temp_list != null){
-            $totalDurationQueue = $this->CountTheTime($temp_list);
-        }
-        else {
-            $totalDurationQueue = ['00:00'];
-        }
+    //     $songs = Songs::all();
+    //     $genres = Genre::all();
+    //     // $temp_list = Session::get('queue');
+    //     $temp_list = $SessionController->getSessionQueue();
+    //     if($temp_list != null){
+    //         $totalDurationQueue = $this->CountTheTime($temp_list);
+    //     }
+    //     else {
+    //         $totalDurationQueue = ['00:00'];
+    //     }
 
-        Session::regenerate();
-        // (new SessionController)->SessionRegenerate();
+    //     Session::regenerate();
+    //     // (new SessionController)->SessionRegenerate();
 
 
-        return view('queue', [
-            'songs' => $songs,
-            'genres' => $genres,
-            'totalDurationQueue' => $totalDurationQueue
-            // 'templist' => $temp_list
-        ]);
-    }
+    //     return view('queue', [
+    //         'songs' => $songs,
+    //         'genres' => $genres,
+    //         'totalDurationQueue' => $totalDurationQueue
+    //         // 'templist' => $temp_list
+    //     ]);
+    // }
 
     public function CountTheTime($temp_lists){
         $combineSongs = [];
