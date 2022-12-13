@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Session;
 use App\Http\Controllers\QueueController;
-
+use App\Models\SavedListsSongs;
+use App\Models\SavedLists;
+use App\Models\Songs;
 
 class SessionController extends Controller
 {
