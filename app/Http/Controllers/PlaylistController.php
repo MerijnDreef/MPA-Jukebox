@@ -121,34 +121,6 @@ class PlaylistController extends Controller
     public function create(){
         return view('songs');
     }
-    
-    //put the function in Session controller
-    // public function store(Request $request){
-    //     $this->validate(request(),[
-    //         'name' => ['required', 'string', 'max:255']
-    //         ]); 
-                   
-    //         $playlist = SavedLists::create([
-    //             'name' => $request->name,
-    //             'user_id' => Auth::user()->id,
-    //         ]);
-
-    //         $list = Session::pull('queue');
-    //         $songs = Songs::all();
-    //         foreach($songs as $song){
-    //             $key = array_search($song->id, $list);
-    //             if($key !== false){
-    //                 $songList = $list[$key];
-    //                 SavedListsSongs::create([
-    //                     'songs_id' => $songList,
-    //                     'saved_lists_id' => $playlist->id,
-    //                 ]);
-    //             }
-    //         }
-
-                        
-    //     return redirect('/playlists');
-    // }
 
     public function countTheTime($playlistId){
         $combineSongs = [];
