@@ -8,6 +8,7 @@ use App\Http\Controllers\QueueController;
 use App\Models\SavedListsSongs;
 use App\Models\SavedLists;
 use App\Models\Songs;
+use App\Models\Genre;
 
 class SessionController extends Controller
 {
