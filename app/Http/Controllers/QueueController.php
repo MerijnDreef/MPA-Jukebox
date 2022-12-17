@@ -12,6 +12,26 @@ class QueueController extends Controller
 {
     // Handles the queue with it's time and songs it needs to get 
 
+    public function index(){        
+        $songs = Songs::all();
+        $genres = Genre::all();
+        $temp_list = Session::get('queue');
+
+        if($temp_list != null){
+            $totalDurationQueue = (new QueueController)->CountTheTime($temp_list);
+        }
+        else {
+            $totalDurationQueue = ['00:00'];
+        }
+
+        return view('queue', [
+            'songs' => $songs,
+            'genres' => $genres,
+            'totalDurationQueue' => $totalDurationQueue
+        ]);
+    }
+
+
     public function CountTheTime($temp_lists){
         $combineSongs = [];
         $duration = 0;

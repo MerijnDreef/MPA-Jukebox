@@ -24,6 +24,33 @@ class PlaylistController extends Controller
         }
     }
 
+    public function storePlaylist(Request $request){
+        $this->validate(request(),[
+            'name' => ['required', 'string', 'max:255']
+            ]); 
+                   
+            $playlist = SavedLists::create([
+                'name' => $request->name,
+                'user_id' => Auth::user()->id,
+            ]);
+
+            $list = Session::pull('queue');
+            $songs = Songs::all();
+            foreach($songs as $song){
+                $key = array_search($song->id, $list);
+                if($key !== false){
+                    $songList = $list[$key];
+                    SavedListsSongs::create([
+                        'songs_id' => $songList,
+                        'saved_lists_id' => $playlist->id,
+                    ]);
+                }
+            }
+
+                        
+        return redirect('/playlists');
+    }
+
     public function show($playlistId){
         if(Auth::user() != null) {
             $savedList = SavedLists::where('id', $playlistId)->with('savedListsSongs.songs')->get();

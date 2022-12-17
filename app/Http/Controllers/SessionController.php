@@ -14,56 +14,62 @@ class SessionController extends Controller
 {
     // Handles the session
 
+    // addSongToSession(id) -> add the song with this id to the session
+    // deleteSong (id)
+
+
+    // getAllSongsFromSession() -> array song ids -> get all the songs stored in the session
+
     // This function is from QueueController
-    public function index(){        
-        $songs = Songs::all();
-        $genres = Genre::all();
-        $temp_list = Session::get('queue');
+    // public function index(){        
+    //     $songs = Songs::all();
+    //     $genres = Genre::all();
+    //     $temp_list = Session::get('queue');
 
-        if($temp_list != null){
-            $totalDurationQueue = (new QueueController)->CountTheTime($temp_list);
-        }
-        else {
-            $totalDurationQueue = ['00:00'];
-        }
+    //     if($temp_list != null){
+    //         $totalDurationQueue = (new QueueController)->CountTheTime($temp_list);
+    //     }
+    //     else {
+    //         $totalDurationQueue = ['00:00'];
+    //     }
 
-        Session::regenerate();
+    //     // Session::regenerate();
 
 
-        return view('queue', [
-            'songs' => $songs,
-            'genres' => $genres,
-            'totalDurationQueue' => $totalDurationQueue
-        ]);
-    }
+    //     // return view('queue', [
+    //     //     'songs' => $songs,
+    //     //     'genres' => $genres,
+    //     //     'totalDurationQueue' => $totalDurationQueue
+    //     // ]);
+    // }
 
     // This function is from PlaylistController
-    public function storePlaylist(Request $request){
-        $this->validate(request(),[
-            'name' => ['required', 'string', 'max:255']
-            ]); 
+    // public function storePlaylist(Request $request){
+    //     $this->validate(request(),[
+    //         'name' => ['required', 'string', 'max:255']
+    //         ]); 
                    
-            $playlist = SavedLists::create([
-                'name' => $request->name,
-                'user_id' => Auth::user()->id,
-            ]);
+    //         $playlist = SavedLists::create([
+    //             'name' => $request->name,
+    //             'user_id' => Auth::user()->id,
+    //         ]);
 
-            $list = Session::pull('queue');
-            $songs = Songs::all();
-            foreach($songs as $song){
-                $key = array_search($song->id, $list);
-                if($key !== false){
-                    $songList = $list[$key];
-                    SavedListsSongs::create([
-                        'songs_id' => $songList,
-                        'saved_lists_id' => $playlist->id,
-                    ]);
-                }
-            }
+    //         $list = Session::pull('queue');
+    //         $songs = Songs::all();
+    //         foreach($songs as $song){
+    //             $key = array_search($song->id, $list);
+    //             if($key !== false){
+    //                 $songList = $list[$key];
+    //                 SavedListsSongs::create([
+    //                     'songs_id' => $songList,
+    //                     'saved_lists_id' => $playlist->id,
+    //                 ]);
+    //             }
+    //         }
 
                         
-        return redirect('/playlists');
-    }
+    //     return redirect('/playlists');
+    // }
 
     public function create()
     {
