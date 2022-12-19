@@ -9,6 +9,7 @@ use App\Models\SavedLists;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Songs;
 use App\Models\SavedListsSongs;
+use App\Http\Controllers\SessionController;
 
 class PlaylistController extends Controller
 {
@@ -34,8 +35,8 @@ class PlaylistController extends Controller
                 'user_id' => Auth::user()->id,
             ]);
 
-            $list = Session::pull('queue');
-            $songs = Songs::all();
+            $list = (new SessionController)->pullQueue();
+            $songs = Songs::where('id', $list)->get();
             foreach($songs as $song){
                 $key = array_search($song->id, $list);
                 if($key !== false){

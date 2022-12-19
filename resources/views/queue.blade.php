@@ -21,7 +21,6 @@
         <h2>Queue Duration: {{ $duration }}</h2>
         @foreach(session()->get('queue') as $list)  
             @foreach($songs as $song)
-                @if($list == $song->id)
                 <ul>
                     <li>Name: {{ $song->name }}</li>
                     <li>Genre: {{ $song->genre->name }}</li>
@@ -32,7 +31,6 @@
                         <button>Remove</button>
                     </form>
                 </ul>
-                @endif
             @endforeach
         @endforeach
     @endforeach

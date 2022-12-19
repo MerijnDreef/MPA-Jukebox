@@ -3,6 +3,7 @@
 namespace app\Classes;
 
 use Illuminate\Support\Facades\Session;
+use App\Http\Controllers\SessionController;
 
 class PlaylistClass {
     private $list = [];
@@ -10,9 +11,9 @@ class PlaylistClass {
     public function __construct(){
         
         if(Session::has('queue')){
-            $this->list = Session::pull('queue');
+            $this->list = (new SessionController)->pullQueue();
         } else{
-            Session::put('queue', []);
+            (new SessionController)->putInQueue([]);
         }
         // dd(Session::get('queue'));
     }
@@ -23,7 +24,8 @@ class PlaylistClass {
     }
 
     public function updateSession(){
-        Session::put('queue', $this->list);
+        // Session::put('queue', $this->list);
+        (new SessionController)->putInQueue($this->list);
     }
 
     public function delete($songId){

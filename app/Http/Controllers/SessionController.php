@@ -71,6 +71,20 @@ class SessionController extends Controller
     //     return redirect('/playlists');
     // }
 
+    public function getQueue(){
+        $sessionHolder = Session::get('queue');
+        return $sessionHolder;
+    }
+
+    public function pullQueue(){
+        $sessionHolder = Session::pull('queue');
+        return $sessionHolder;
+    }
+
+    public function putInQueue($givenList){
+        $sessionHolder = Session::put('queue', $givenList);
+        return $sessionHolder;
+    }
     public function create()
     {
         return view('login');

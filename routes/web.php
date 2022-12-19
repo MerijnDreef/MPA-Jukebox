@@ -48,9 +48,9 @@ Route::post('playlists/{playlistId}/addSongs/songInfoPlaylist/{songId}', [SongCo
 Route::get('playlists/{playlistId}/addSongs', [SongController::class, 'getSong']);
 Route::post('playlists/{playlistId}/addSongs/{song_id}', [PlaylistController::class, 'addSongToPlaylist']);
 
-Route::get('queue', [SessionController::class, 'index']);
+Route::get('queue', [QueueController::class, 'index']);
 Route::post('queue/delete/{songId}', [QueueController::class, 'delete']);
 
-Route::post('queue', [SessionController::class, 'storePlaylist']);
+Route::post('queue', [PlaylistController::class, 'storePlaylist']);
 
 Route::get('genreSpecific/{genre_id}', [SongController::class, 'getSongSpecific'])->name('songGenre');
