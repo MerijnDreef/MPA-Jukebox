@@ -146,10 +146,6 @@ class PlaylistController extends Controller
         return redirect('songs');
     }
 
-    public function create(){
-        return view('songs');
-    }
-
     public function countTheTime($playlistId){
         $combineSongs = [];
         $duration = 0;

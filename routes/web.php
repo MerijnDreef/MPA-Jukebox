@@ -29,7 +29,6 @@ Route::post('/login', [SessionController::class, 'store']);
 Route::get('/logout', [SessionController::class, 'destroy']);
 
 Route::get('songs', [SongController::class, 'getSong'])->name('songs');
-Route::get('songs/{songId}', [PlaylistController::class, 'create']);
 Route::post('songs/{songId}', [PlaylistController::class, 'session']);
 
 Route::post('songInfo/{songId}', [SongController::class, 'getSongInfo'])->name('songInfo');
