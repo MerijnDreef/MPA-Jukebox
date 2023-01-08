@@ -12,12 +12,5 @@ class GenreController extends Controller
     public function getGenreIndex(){
         $genres = Genre::all();
         return view('index', compact('genres'));
-    }
-
-    // public function getGenre(){
-    //     $genres = Genre::all();
-    //     return view('genreSpecific', compact('genres'));
-    // }
-
-  
+    }  
 }
